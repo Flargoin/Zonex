@@ -27,7 +27,8 @@ __webpack_require__.r(__webpack_exports__);
   documentEl: document,
   htmlEl: document.documentElement,
   bodyEl: document.body,
-  $bannerSlider: document.querySelector('.banner-slider')
+  $bannerSlider: document.querySelector('.banner-slider'),
+  $marketing: document.querySelector('.marketing')
 });
 
 /***/ }),
@@ -67,6 +68,58 @@ var bannerSlider = new swiper__WEBPACK_IMPORTED_MODULE_0__["default"](_vars__WEB
     el: '.banner-pag',
     type: 'bullets',
     clickable: true
+  }
+});
+
+/***/ }),
+
+/***/ "./src/js/components/marketing.js":
+/*!****************************************!*\
+  !*** ./src/js/components/marketing.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _vars__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_vars */ "./src/js/_vars.js");
+
+var counter = 0;
+var delay = 4000;
+var data = [{
+  title: 'title of product 1',
+  where: 'Moscow, Russia'
+}, {
+  title: 'title of product 2',
+  where: 'Kiev, Ukraine'
+}, {
+  title: 'title of product 3',
+  where: 'Rome, Italy'
+}];
+
+var closeMarketing = function closeMarketing() {
+  _vars__WEBPACK_IMPORTED_MODULE_0__["default"].$marketing.classList.remove('marketing--visible');
+};
+
+var changeMarketingData = function changeMarketingData() {
+  setTimeout(function () {
+    _vars__WEBPACK_IMPORTED_MODULE_0__["default"].$marketing.classList.add('marketing--visible');
+  }, delay - 2000);
+  _vars__WEBPACK_IMPORTED_MODULE_0__["default"].$marketing.classList.remove('marketing--visible');
+  var stringTitle = "".concat(data[counter].title);
+  var stringWhere = "15 minutes ago ".concat(data[counter].where);
+  _vars__WEBPACK_IMPORTED_MODULE_0__["default"].$marketing.querySelector('.marketing__title').textContent = stringTitle;
+  _vars__WEBPACK_IMPORTED_MODULE_0__["default"].$marketing.querySelector('.marketing__when-from').textContent = stringWhere;
+  counter++;
+
+  if (counter == data.length) {
+    counter = 0;
+  }
+};
+
+setInterval(changeMarketingData, delay);
+_vars__WEBPACK_IMPORTED_MODULE_0__["default"].$marketing.addEventListener('click', function (e) {
+  if (e.target.classList.contains('marketing__close')) {
+    closeMarketing();
   }
 });
 
@@ -23132,8 +23185,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vendor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_vendor */ "./src/js/_vendor.js");
 /* harmony import */ var _vars__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_vars */ "./src/js/_vars.js");
 /* harmony import */ var _components_main_slider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/main-slider */ "./src/js/components/main-slider.js");
-/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./_components */ "./src/js/_components.js");
-/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_components__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _components_marketing__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/marketing */ "./src/js/components/marketing.js");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./_components */ "./src/js/_components.js");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components__WEBPACK_IMPORTED_MODULE_4__);
+
 
 
 
