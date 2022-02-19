@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="117" height="22" viewBox="0 0 117 22">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #151515;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="logo_zonex" data-name="logo zonex" class="cls-1" d="M893,35h17L900,52h9v4H892l10-16h-9V35Zm32,21a10.955,10.955,0,0,1-10.817-12.949l5.726,5.09a6.007,6.007,0,1,0-.115-6.071l-3.822-3.345A11,11,0,1,1,925,56Zm17,0V46l5,3v7h-5Zm0-16,19,16V34h-5V45L942,34v6Zm41-6H968V56h15V52H973V47h9V43h-9V38h10V34Zm26,22h-6l-5-6.875L993,56h-6l8-11-8-11h6l5,6.875L1003,34h6l-8,11Z" transform="translate(-892 -34)"/>
+</svg>
