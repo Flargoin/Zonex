@@ -1,0 +1,63 @@
+.shop-banners {
+  padding-top: 70px;
+}
+.shop-banners__container {
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.shop-banner {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 50%;
+  padding: 50px;
+  min-height: 420px;
+  color: var(--color-white);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: var(--color-dark);
+}
+.shop-banner::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(215, 8, 8, 0.1);
+}
+.shop-banner__title {
+  font-weight: 500;
+  font-size: 48px;
+  margin: 0;
+  margin-bottom: 20px;
+}
+.shop-banner__title, .shop-banner__text {
+  position: relative;
+  z-index: 1;
+}
+.shop-banner--men {
+  background-image: url(../../img/banner-1.jpg);
+}
+.shop-banner--women {
+  background-image: url(../../img/banner-2.jpg);
+}
+/*# sourceMappingURL=shop-banners.css.map */
