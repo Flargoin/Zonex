@@ -29,7 +29,13 @@ __webpack_require__.r(__webpack_exports__);
   bodyEl: document.body,
   $bannerSlider: document.querySelector('.banner-slider'),
   $marketing: document.querySelector('.marketing'),
-  $catalogSlider: document.querySelector('.hero-catalog__slider')
+  $catalogSlider: document.querySelector('.hero-catalog__slider'),
+  $catalogFiltersTop: document.querySelectorAll('.catalog-filter__top'),
+  $hideFilters: document.querySelector('.hide-filters'),
+  $catalogColumns: document.querySelector('.catalog-columns__list'),
+  $catalogGridContent: document.querySelector('.catalog-grid__content'),
+  $catalogFilterItems: document.querySelectorAll('.catalog-filter__item'),
+  $catalogChoice: document.querySelector('.catalog-choice')
 });
 
 /***/ }),
@@ -50,6 +56,117 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/js/components/catalog-filter-toggle.js":
+/*!****************************************************!*\
+  !*** ./src/js/components/catalog-filter-toggle.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _vars__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_vars */ "./src/js/_vars.js");
+
+_vars__WEBPACK_IMPORTED_MODULE_0__["default"].$catalogFiltersTop.forEach(function (el) {
+  el.addEventListener('click', function (e) {
+    e.currentTarget.closest('.catalog-filter').classList.toggle('catalog-filter--open');
+  });
+});
+_vars__WEBPACK_IMPORTED_MODULE_0__["default"].$hideFilters.addEventListener('click', function (e) {
+  _vars__WEBPACK_IMPORTED_MODULE_0__["default"].$catalogFiltersTop.forEach(function (el) {
+    el.closest('.catalog-filter').classList.remove('catalog-filter--open');
+  });
+});
+
+var createChoiceItem = function createChoiceItem(text) {
+  return "\n    <button class=\"btn-reset catalog-choice__item\" data-choice-text=\"".concat(text, "\">\n      ").concat(text, "\n      <svg aria-hidden=\"true\">\n        <use xlink:href=\"img/sprite.svg#close\"></use>\n      </svg>\n    </button>\n  ");
+};
+
+_vars__WEBPACK_IMPORTED_MODULE_0__["default"].$catalogFilterItems.forEach(function (el) {
+  el.addEventListener('change', function (e) {
+    var checked = el.querySelector('input').checked;
+
+    if (checked) {
+      el.querySelector('input').classList.add('custom-checkbox--active');
+      var text = el.querySelector('.custom-checkbox__text').textContent;
+      _vars__WEBPACK_IMPORTED_MODULE_0__["default"].$catalogChoice.insertAdjacentHTML('afterbegin', createChoiceItem(text));
+    } else {
+      el.querySelector('.custom-checkbox').classList.remove('custom-checkbox--active');
+      var _text = el.querySelector('.custom-checkbox__text').textContent;
+      var q = document.querySelector("[data-choice-text=\"".concat(_text, "\"]"));
+      console.log(q);
+    }
+
+    var activeCheckboxes = document.querySelectorAll('.custom-checkbox--active');
+
+    if (activeCheckboxes.length > 0) {
+      _vars__WEBPACK_IMPORTED_MODULE_0__["default"].$catalogChoice.style.display = 'block';
+    } else {
+      _vars__WEBPACK_IMPORTED_MODULE_0__["default"].$catalogChoice.style.display = 'none';
+    }
+  });
+});
+_vars__WEBPACK_IMPORTED_MODULE_0__["default"].$catalogChoice.addEventListener('click', function (e) {
+  if (e.target.classList.contains('catalog-choice__item')) {
+    e.target.remove();
+    var text = e.target.textContent.trimLeft().trimRight();
+    console.log(text);
+    document.querySelector("[data-text=\"".concat(text, "\"]")).querySelector('input').checked = false;
+    document.querySelector("[data-text=\"".concat(text, "\"]")).classList.remove('custom-checkbox--active');
+  }
+
+  if (e.target.classList.contains('catalog-choice__clear')) {
+    console.log(e.currentTarget.children);
+    Array.from(e.currentTarget.children).forEach(function (el) {
+      if (!el.classList.contains('catalog-choice__clear')) {
+        el.remove();
+      }
+
+      _vars__WEBPACK_IMPORTED_MODULE_0__["default"].$catalogFilterItems.forEach(function (el) {
+        el.querySelector('input').checked = false;
+        el.querySelector('.custom-checkbox').classList.remove('custom-checkbox--active');
+      });
+    });
+    e.currentTarget.style.display = 'none';
+  }
+
+  if (e.currentTarget.children.length === 1) {
+    e.currentTarget.style.display = 'none';
+  }
+
+  console.log(e.currentTarget.children);
+});
+
+/***/ }),
+
+/***/ "./src/js/components/catalog-props.js":
+/*!********************************************!*\
+  !*** ./src/js/components/catalog-props.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _vars__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_vars */ "./src/js/_vars.js");
+
+_vars__WEBPACK_IMPORTED_MODULE_0__["default"].$catalogColumns.addEventListener('click', function (e) {
+  /*
+    Если мы кликаем на кнопку(.catalog-columns__btn) или на элемент чей родитель является(.catalog-columns__item)
+    то удаляем класс активности со всех элементов и ставим его в тот который кликнули
+    и считываем число из дата-атрибута
+  */
+  if (e.target.classList.contains('.catalog-columns__btn') || e.target.closest('.catalog-columns__item')) {
+    var columns = e.target.dataset.columns;
+    var $columnsBtn = document.querySelectorAll('.catalog-columns__btn');
+    $columnsBtn.forEach(function (el) {
+      el.classList.remove('catalog-columns__btn--current');
+    });
+    e.target.classList.add('catalog-columns__btn--current');
+    _vars__WEBPACK_IMPORTED_MODULE_0__["default"].$catalogGridContent.dataset.gridColumns = columns;
+  }
+});
+
+/***/ }),
+
 /***/ "./src/js/components/catalog-slider.js":
 /*!*********************************************!*\
   !*** ./src/js/components/catalog-slider.js ***!
@@ -63,10 +180,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var catalogSlider = new swiper__WEBPACK_IMPORTED_MODULE_0__["default"](_vars__WEBPACK_IMPORTED_MODULE_1__["default"].$catalogSlider, {
-  autoplay: true,
-  speed: 400,
-  loop: true,
-  slidesPerView: 1
+  slidesPerView: 1,
+  modules: [swiper__WEBPACK_IMPORTED_MODULE_0__.Navigation],
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev'
+  }
 });
 
 /***/ }),
@@ -105,46 +224,48 @@ var bannerSlider = new swiper__WEBPACK_IMPORTED_MODULE_0__["default"](_vars__WEB
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vars__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_vars */ "./src/js/_vars.js");
 
-var counter = 0;
-var delay = 4000;
-var data = [{
-  title: 'title of product 1',
-  where: 'Moscow, Russia'
-}, {
-  title: 'title of product 2',
-  where: 'Kiev, Ukraine'
-}, {
-  title: 'title of product 3',
-  where: 'Rome, Italy'
-}];
 
-var closeMarketing = function closeMarketing() {
-  _vars__WEBPACK_IMPORTED_MODULE_0__["default"].$marketing.classList.remove('marketing--visible');
-};
+if (_vars__WEBPACK_IMPORTED_MODULE_0__["default"].$marketing) {
+  var counter = 0;
+  var delay = 4000;
+  var data = [{
+    title: 'title of product 1',
+    where: 'Moscow, Russia'
+  }, {
+    title: 'title of product 2',
+    where: 'Kiev, Ukraine'
+  }, {
+    title: 'title of product 3',
+    where: 'Rome, Italy'
+  }];
 
-var changeMarketingData = function changeMarketingData() {
-  setTimeout(function () {
-    _vars__WEBPACK_IMPORTED_MODULE_0__["default"].$marketing.classList.add('marketing--visible');
-  }, delay - 2000);
-  _vars__WEBPACK_IMPORTED_MODULE_0__["default"].$marketing.classList.remove('marketing--visible');
-  var stringTitle = "".concat(data[counter].title);
-  var stringWhere = "15 minutes ago ".concat(data[counter].where);
-  _vars__WEBPACK_IMPORTED_MODULE_0__["default"].$marketing.querySelector('.marketing__title').textContent = stringTitle;
-  _vars__WEBPACK_IMPORTED_MODULE_0__["default"].$marketing.querySelector('.marketing__when-from').textContent = stringWhere;
-  counter++;
+  var closeMarketing = function closeMarketing() {
+    _vars__WEBPACK_IMPORTED_MODULE_0__["default"].$marketing.classList.remove('marketing--visible');
+  };
 
-  if (counter == data.length) {
-    counter = 0;
-  }
-};
-/* setInterval(changeMarketingData, delay); */
+  var changeMarketingData = function changeMarketingData() {
+    setTimeout(function () {
+      _vars__WEBPACK_IMPORTED_MODULE_0__["default"].$marketing.classList.add('marketing--visible');
+    }, delay - 2000);
+    _vars__WEBPACK_IMPORTED_MODULE_0__["default"].$marketing.classList.remove('marketing--visible');
+    var stringTitle = "".concat(data[counter].title);
+    var stringWhere = "15 minutes ago ".concat(data[counter].where);
+    _vars__WEBPACK_IMPORTED_MODULE_0__["default"].$marketing.querySelector('.marketing__title').textContent = stringTitle;
+    _vars__WEBPACK_IMPORTED_MODULE_0__["default"].$marketing.querySelector('.marketing__when-from').textContent = stringWhere;
+    counter++;
 
+    if (counter == data.length) {
+      counter = 0;
+    }
+  };
 
-_vars__WEBPACK_IMPORTED_MODULE_0__["default"].$marketing.addEventListener('click', function (e) {
-  if (e.target.classList.contains('marketing__close')) {
-    closeMarketing();
-  }
-});
+  setInterval(changeMarketingData, delay);
+  _vars__WEBPACK_IMPORTED_MODULE_0__["default"].$marketing.addEventListener('click', function (e) {
+    if (e.target.classList.contains('marketing__close')) {
+      closeMarketing();
+    }
+  });
+}
 
 /***/ }),
 
@@ -23210,8 +23331,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_main_slider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/main-slider */ "./src/js/components/main-slider.js");
 /* harmony import */ var _components_catalog_slider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/catalog-slider */ "./src/js/components/catalog-slider.js");
 /* harmony import */ var _components_marketing__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/marketing */ "./src/js/components/marketing.js");
-/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./_components */ "./src/js/_components.js");
-/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _components_catalog_filter_toggle__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/catalog-filter-toggle */ "./src/js/components/catalog-filter-toggle.js");
+/* harmony import */ var _components_catalog_props__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/catalog-props */ "./src/js/components/catalog-props.js");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./_components */ "./src/js/_components.js");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_components__WEBPACK_IMPORTED_MODULE_7__);
+
+
 
 
 
