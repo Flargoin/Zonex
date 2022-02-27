@@ -56,6 +56,16 @@
       <div class="hero-catalog">
   <div class="container container-narrow hero-catalog__container">
     <div class="hero-catalog__slider">
+      <button class="hero-prev-btn btn-reset">
+        <svg class="">
+          <use xlink:href="img/sprite.svg#left-arrow"></use>
+        </svg>
+       </button>
+       <button class="hero-next-btn btn-reset">
+         <svg class="">
+           <use xlink:href="img/sprite.svg#right-arrow"></use>
+         </svg>
+       </button>
       <div class="swiper-wrapper">
         <div class="swiper-slide">
           <div class="catalog-slide">
@@ -69,6 +79,7 @@
               <a href="#" class="catalog-slide__link catalog-slide__link--dark">Discovery</a>
               <a href="#" class="catalog-slide__link catalog-slide__link--light">Shop now</a>
             </div>
+            <img src="img/catalog-girl.png" class="catalog-slide__img" alt="image on banner">
           </div>
         </div>
         <div class="swiper-slide">
@@ -83,6 +94,7 @@
               <a href="#" class="catalog-slide__link catalog-slide__link--dark">Discovery</a>
               <a href="#" class="catalog-slide__link catalog-slide__link--light">Shop now</a>
             </div>
+            <img src="img/catalog-girl.png" class="catalog-slide__img" alt="image on banner">
           </div>
         </div>
       </div>
@@ -494,10 +506,18 @@
           <li class="catalog-columns__item"><button class="btn-reset main-link catalog-columns__btn" data-columns="5">5</button></li>
         </ul>
       </div>
-
-      <select name="" id="" class="catalog-select">
-        <option value="">123</option>
-      </select>
+      <div class="custom-select" tabindex="0">
+        <div class="custom-select__top">
+          sort by latest
+        </div>
+        <div class="custom-select__dropdown">
+          <ul class="custom-select__list">
+            <li class="custom-select__item">sort by latest</li>
+            <li class="custom-select__item">sort by price</li>
+            <li class="custom-select__item">sort by smth</li>
+          </ul>
+        </div>
+      </div>
     </div>
     <div class="catalog-props__choice catalog-choice">
       <button class="btn-reset catalog-choice__clear">
