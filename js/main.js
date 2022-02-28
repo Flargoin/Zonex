@@ -36,7 +36,8 @@ __webpack_require__.r(__webpack_exports__);
   $catalogGridContent: document.querySelector('.catalog-grid__content'),
   $catalogFilterItems: document.querySelectorAll('.catalog-filter__item'),
   $catalogChoice: document.querySelector('.catalog-choice'),
-  $customSelect: document.querySelectorAll('.custom-select')
+  $customSelect: document.querySelectorAll('.custom-select'),
+  $freeDeliveryBtn: document.querySelector('.free-delivery__btn')
 });
 
 /***/ }),
@@ -176,12 +177,6 @@ _vars__WEBPACK_IMPORTED_MODULE_0__["default"].$customSelect.forEach(function (el
       var text = e.target.textContent;
       e.currentTarget.querySelector('.custom-select__top').textContent = text;
     }
-  });
-  el.addEventListener('focus', function (e) {
-    e.currentTarget.classList.add('custom-selec--open');
-  });
-  el.addEventListener('blur', function (e) {
-    e.currentTarget.classList.remove('custom-selec--open');
   });
 });
 
@@ -23364,6 +23359,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+_vars__WEBPACK_IMPORTED_MODULE_1__["default"].$freeDeliveryBtn.addEventListener('click', function (e) {
+  e.currentTarget.closest('.free-delivery').style.display = "none";
+});
 })();
 
 /******/ })()
