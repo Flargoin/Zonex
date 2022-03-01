@@ -37,7 +37,9 @@ __webpack_require__.r(__webpack_exports__);
   $catalogFilterItems: document.querySelectorAll('.catalog-filter__item'),
   $catalogChoice: document.querySelector('.catalog-choice'),
   $customSelect: document.querySelectorAll('.custom-select'),
-  $freeDeliveryBtn: document.querySelector('.free-delivery__btn')
+  $freeDeliveryBtn: document.querySelector('.free-delivery__btn'),
+  $colorSelect: document.querySelector('.color-select'),
+  $sizeSelect: document.querySelector('.size-select')
 });
 
 /***/ }),
@@ -55,6 +57,69 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_swiper_swiper_bundle__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/swiper/swiper-bundle */ "./node_modules/swiper/swiper-bundle.js");
 
 
+
+/***/ }),
+
+/***/ "./src/js/components/card-select.js":
+/*!******************************************!*\
+  !*** ./src/js/components/card-select.js ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _vars__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_vars */ "./src/js/_vars.js");
+
+
+if (_vars__WEBPACK_IMPORTED_MODULE_0__["default"].$colorSelect) {
+  _vars__WEBPACK_IMPORTED_MODULE_0__["default"].$colorSelect.addEventListener('click', function (e) {
+    if (e.target.classList.contains('color-select__btn')) {
+      document.querySelectorAll('.color-select__btn').forEach(function (el) {
+        return el.classList.remove('color-select__btn--active');
+      });
+      var color = e.target.dataset.color;
+      e.currentTarget.querySelector('.color-select__selected span').textContent = color;
+      e.target.classList.add('color-select__btn--active');
+    }
+  });
+}
+
+var size = '';
+
+if (_vars__WEBPACK_IMPORTED_MODULE_0__["default"].$sizeSelect) {
+  _vars__WEBPACK_IMPORTED_MODULE_0__["default"].$sizeSelect.addEventListener('click', function (e) {
+    if (e.target.classList.contains('size-select__btn')) {
+      e.currentTarget.querySelector('.size-select__reset').style.display = 'inline-flex';
+      var color = e.target.dataset.color;
+      e.currentTarget.querySelector('.size-select__selected span').textContent = color;
+      e.target.classList.toggle('size-select__btn--active');
+
+      if (e.target.classList.contains('size-select__btn--active')) {
+        var currentSize = e.target.textContent;
+        size += currentSize + ', ';
+      } else {
+        var _currentSize = e.target.textContent + ', ';
+
+        size = size.replace(_currentSize, '');
+      }
+    }
+
+    e.currentTarget.querySelector('.size-select__selected span').textContent = size;
+
+    if (!size) {
+      e.currentTarget.querySelector('.size-select__selected span').textContent = 'Select a size';
+    }
+
+    if (e.target.classList.contains('size-select__reset')) {
+      e.currentTarget.querySelector('.size-select__selected span').textContent = 'Select a size';
+      size = '';
+      document.querySelectorAll('.size-select__btn').forEach(function (el) {
+        return el.classList.remove('size-select__btn--active');
+      });
+      e.target.style.display = 'none';
+    }
+  });
+}
 
 /***/ }),
 
@@ -153,32 +218,38 @@ if (document.querySelector('.catalog')) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vars__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_vars */ "./src/js/_vars.js");
 
-_vars__WEBPACK_IMPORTED_MODULE_0__["default"].$catalogColumns.addEventListener('click', function (e) {
-  /*
-    Если мы кликаем на кнопку(.catalog-columns__btn) или на элемент чей родитель является(.catalog-columns__item)
-    то удаляем класс активности со всех элементов и ставим его в тот который кликнули
-    и считываем число из дата-атрибута
-  */
-  if (e.target.classList.contains('.catalog-columns__btn') || e.target.closest('.catalog-columns__item')) {
-    var columns = e.target.dataset.columns;
-    var $columnsBtn = document.querySelectorAll('.catalog-columns__btn');
-    $columnsBtn.forEach(function (el) {
-      el.classList.remove('catalog-columns__btn--current');
-    });
-    e.target.classList.add('catalog-columns__btn--current');
-    _vars__WEBPACK_IMPORTED_MODULE_0__["default"].$catalogGridContent.dataset.gridColumns = columns;
-  }
-});
-_vars__WEBPACK_IMPORTED_MODULE_0__["default"].$customSelect.forEach(function (el) {
-  el.addEventListener('click', function (e) {
-    e.currentTarget.classList.toggle('custom-select--open');
 
-    if (e.target.classList.contains('custom-select__item')) {
-      var text = e.target.textContent;
-      e.currentTarget.querySelector('.custom-select__top').textContent = text;
+if (document.querySelector('.catalog')) {
+  _vars__WEBPACK_IMPORTED_MODULE_0__["default"].$freeDeliveryBtn.addEventListener('click', function (e) {
+    e.currentTarget.closest('.free-delivery').style.display = "none";
+  });
+  _vars__WEBPACK_IMPORTED_MODULE_0__["default"].$catalogColumns.addEventListener('click', function (e) {
+    /*
+      Если мы кликаем на кнопку(.catalog-columns__btn) или на элемент чей родитель является(.catalog-columns__item)
+      то удаляем класс активности со всех элементов и ставим его в тот который кликнули
+      и считываем число из дата-атрибута
+    */
+    if (e.target.classList.contains('.catalog-columns__btn') || e.target.closest('.catalog-columns__item')) {
+      var columns = e.target.dataset.columns;
+      var $columnsBtn = document.querySelectorAll('.catalog-columns__btn');
+      $columnsBtn.forEach(function (el) {
+        el.classList.remove('catalog-columns__btn--current');
+      });
+      e.target.classList.add('catalog-columns__btn--current');
+      _vars__WEBPACK_IMPORTED_MODULE_0__["default"].$catalogGridContent.dataset.gridColumns = columns;
     }
   });
-});
+  _vars__WEBPACK_IMPORTED_MODULE_0__["default"].$customSelect.forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      e.currentTarget.classList.toggle('custom-select--open');
+
+      if (e.target.classList.contains('custom-select__item')) {
+        var text = e.target.textContent;
+        e.currentTarget.querySelector('.custom-select__top').textContent = text;
+      }
+    });
+  });
+}
 
 /***/ }),
 
@@ -23349,8 +23420,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_marketing__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/marketing */ "./src/js/components/marketing.js");
 /* harmony import */ var _components_catalog_filter_toggle__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/catalog-filter-toggle */ "./src/js/components/catalog-filter-toggle.js");
 /* harmony import */ var _components_catalog_props__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/catalog-props */ "./src/js/components/catalog-props.js");
-/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./_components */ "./src/js/_components.js");
-/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_components__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _components_card_select__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/card-select */ "./src/js/components/card-select.js");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./_components */ "./src/js/_components.js");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_components__WEBPACK_IMPORTED_MODULE_8__);
 
 
 
@@ -23359,9 +23431,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-_vars__WEBPACK_IMPORTED_MODULE_1__["default"].$freeDeliveryBtn.addEventListener('click', function (e) {
-  e.currentTarget.closest('.free-delivery').style.display = "none";
-});
+
 })();
 
 /******/ })()
