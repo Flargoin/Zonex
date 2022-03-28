@@ -55,6 +55,7 @@ body {
   font-family: "Jost", sans-serif;
   color: var(--color-dark);
   background-color: var(--color-white);
+  overflow-anchor: none;
 }
 
 /* .stop-scroll {
@@ -213,9 +214,24 @@ a {
   -webkit-box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
   box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
   background-color: car(--color-white);
+  -webkit-transition: -webkit-transform 0.5s;
+  transition: -webkit-transform 0.5s;
+  -o-transition: transform 0.5s;
+  transition: transform 0.5s;
+  transition: transform 0.5s, -webkit-transform 0.5s;
 }
 .to-top svg {
   fill: #375973;
+  -webkit-transition: -webkit-transform 0.5s;
+  transition: -webkit-transform 0.5s;
+  -o-transition: transform 0.5s;
+  transition: transform 0.5s;
+  transition: transform 0.5s, -webkit-transform 0.5s;
+}
+.to-top:hover {
+  -webkit-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  transform: rotate(360deg);
 }
 
 .container-narrow {
@@ -1835,6 +1851,21 @@ button.swiper-pagination-bullet {
   margin-top: 92px;
   color: var(--color-gray);
   font-size: 13px;
+  -webkit-transition: -webkit-transform 0.3s;
+  transition: -webkit-transform 0.3s;
+  -o-transition: transform 0.3s;
+  transition: transform 0.3s;
+  transition: transform 0.3s, -webkit-transform 0.3s;
+}
+.main-products__more:hover svg {
+  -webkit-transform: translateY(7px);
+  -ms-transform: translateY(7px);
+  transform: translateY(7px);
+  -webkit-transition: -webkit-transform 0.3s;
+  transition: -webkit-transform 0.3s;
+  -o-transition: transform 0.3s;
+  transition: transform 0.3s;
+  transition: transform 0.3s, -webkit-transform 0.3s;
 }
 .main-products__more span {
   display: inline-block;
@@ -2552,6 +2583,10 @@ button.swiper-pagination-bullet {
 
 .custom-select {
   position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .custom-select__dropdown {
   display: none;
@@ -3034,6 +3069,15 @@ button.swiper-pagination-bullet {
   font-weight: 700;
   font-size: 15px;
   color: var(--color-gray);
+  -webkit-transition: color 0.3s;
+  -o-transition: color 0.3s;
+  transition: color 0.3s;
+}
+.card-description__link:hover {
+  color: var(--color-dark);
+  -webkit-transition: color 0.3s;
+  -o-transition: color 0.3s;
+  transition: color 0.3s;
 }
 .card-description__link--active {
   color: var(--color-dark);
@@ -3292,6 +3336,7 @@ button.swiper-pagination-bullet {
   margin-right: 29px;
 }
 .social__link {
+  position: relative;
   display: block;
   width: 16px;
   height: 16px;
